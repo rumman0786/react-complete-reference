@@ -49,17 +49,13 @@ class App extends Component {
       cursor: 'pointer'
     };
 
-    return (
-      <div className="App">
-        <h1>This is a React App</h1>
-        <p>Does this work???</p>
-        <button style={jsxButtonstyle}
-                onClick={this.togglePersonsHandler}>Switch Name</button>
-        {
-          this.state.showPersons
-          ? <div>
+    let persons = null;
+
+    if(this.state.showPersons) {
+      persons = (
+            <div>
               <Person name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}/>
+                      age={this.state.persons[0].age}/>
               <Person name={this.state.persons[1].name}
                       age={this.state.persons[1].age}
                       callback={this.switchNameHandler.bind(this, 'Rumman Ashraf')}
@@ -69,8 +65,16 @@ class App extends Component {
               <Person name={this.state.persons[2].name}
                       age={this.state.persons[2].age}/>
             </div>
-          : null
-        }
+      );
+    }
+
+    return (
+      <div className="App">
+        <h1>This is a React App</h1>
+        <p>Does this work???</p>
+        <button style={jsxButtonstyle}
+                onClick={this.togglePersonsHandler}>Switch Name</button>
+        {persons}
       </div>
     );
     // return React.createElement('div', {className: 'App'},
