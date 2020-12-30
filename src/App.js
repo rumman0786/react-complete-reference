@@ -40,6 +40,12 @@ class App extends Component {
     this.setState({showPersons: !currentVisibility});
   }
 
+  deletePersonsHandler = (personIndex) => {
+    const modifiablePersons = this.state.persons;
+    modifiablePersons.splice(personIndex, 1);
+    this.setState({persons: modifiablePersons});
+  }
+
   render() {
     const jsxButtonstyle = {
       backgroundColor: 'white',
@@ -55,8 +61,11 @@ class App extends Component {
       persons = (
             <div>
               {
-                this.state.persons.map(person =>
-                  <Person name={person.name} age={person.age}/>
+                this.state.persons.map((person, index) =>
+                  <Person
+                    callback={() => this.deletePersonsHandler(index)}
+                    name={person.name}
+                    age={person.age}/>
                 )
               }
             </div>
@@ -68,7 +77,7 @@ class App extends Component {
         <h1>This is a React App</h1>
         <p>Does this work???</p>
         <button style={jsxButtonstyle}
-                onClick={this.togglePersonsHandler}>Switch Name</button>
+                onClick={this.togglePersonsHandler}>Switch Visibility</button>
         {persons}
       </div>
     );
