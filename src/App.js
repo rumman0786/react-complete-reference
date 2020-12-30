@@ -6,9 +6,9 @@ class App extends Component {
 
   state = {
     persons: [
-      {name: 'Rumman', age:30},
-      {name: 'Sabrina', age:25},
-      {name: 'Max', age:27},
+      {id: 1, name: 'Rumman', age:30},
+      {id: 2, name: 'Sabrina', age:25},
+      {id: 3, name: 'Max', age:27},
     ],
     otherstate: "This is another prop",
     showPersons: false,
@@ -18,21 +18,27 @@ class App extends Component {
     // console.log('Clicked switch button');
     this.setState({
       persons: [
-        {name: newName, age:30},
-        {name: 'Sabrina', age:25},
-        {name: 'Max', age:35},
+        {id: 1, name: newName, age:30},
+        {id: 2, name: 'Sabrina', age:25},
+        {id: 3, name: 'Max', age:35},
       ]
     });
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: 'Rumman', age:30},
-        {name: event.target.value, age:25},
-        {name: 'Max', age:35},
-      ]
-    });
+  nameChangedHandler = (event, personId) => {
+    const personIndex = this.state.persons.findIndex(p => p.id === personId);
+    const copySelectedPerson = {
+      ...this.state.persons[personIndex]
+    };
+
+    copySelectedPerson.name = event.target.value;
+    // older syntax
+    // cons copySelectedPerson = Object.assign({}, this.state.persons[personIndex]);
+
+    const copyPersons = [...this.state.persons];
+    copyPersons[personIndex] = copySelectedPerson;
+
+    this.setState({persons: copyPersons});
   }
 
   togglePersonsHandler = () => {
@@ -41,7 +47,10 @@ class App extends Component {
   }
 
   deletePersonsHandler = (personIndex) => {
-    const modifiablePersons = this.state.persons;
+    // make copy of array instead of referece
+    // old way to copy array
+    // const modifiablePersons = this.state.persons.splice();
+    const modifiablePersons = [...this.state.persons];
     modifiablePersons.splice(personIndex, 1);
     this.setState({persons: modifiablePersons});
   }
@@ -64,6 +73,8 @@ class App extends Component {
                 this.state.persons.map((person, index) =>
                   <Person
                     callback={() => this.deletePersonsHandler(index)}
+                    changeCallback={(event) => this.nameChangedHandler(event, person.id)}
+                    key={person.id}
                     name={person.name}
                     age={person.age}/>
                 )
