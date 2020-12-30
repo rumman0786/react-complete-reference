@@ -10,7 +10,8 @@ class App extends Component {
       {name: 'Sabrina', age:25},
       {name: 'Max', age:27},
     ],
-    otherstate: "This is another prop"
+    otherstate: "This is another prop",
+    showPersons: false,
   }
 
   switchNameHandler = (newName) => {
@@ -34,6 +35,11 @@ class App extends Component {
     });
   }
 
+  togglePersonsHandler = () => {
+    const currentVisibility = this.state.showPersons;
+    this.setState({showPersons: !currentVisibility});
+  }
+
   render() {
     const jsxButtonstyle = {
       backgroundColor: 'white',
@@ -48,17 +54,23 @@ class App extends Component {
         <h1>This is a React App</h1>
         <p>Does this work???</p>
         <button style={jsxButtonstyle}
-                onClick={() => this.switchNameHandler('Rumman!!!')}>Switch Name</button>
-        <Person name={this.state.persons[0].name}
-                age={this.state.persons[0].age}/>
-        <Person name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                callback={this.switchNameHandler.bind(this, 'Rumman Ashraf')}
-                changeCallback={this.nameChangedHandler}>
-                  My Hobbies: Browsing Netflix, Learning Coding
-        </Person>
-        <Person name={this.state.persons[2].name}
-                age={this.state.persons[2].age}/>
+                onClick={this.togglePersonsHandler}>Switch Name</button>
+        {
+          this.state.showPersons
+          ? <div>
+              <Person name={this.state.persons[0].name}
+                    age={this.state.persons[0].age}/>
+              <Person name={this.state.persons[1].name}
+                      age={this.state.persons[1].age}
+                      callback={this.switchNameHandler.bind(this, 'Rumman Ashraf')}
+                      changeCallback={this.nameChangedHandler}>
+                        My Hobbies: Browsing Netflix, Learning Coding
+              </Person>
+              <Person name={this.state.persons[2].name}
+                      age={this.state.persons[2].age}/>
+            </div>
+          : null
+        }
       </div>
     );
     // return React.createElement('div', {className: 'App'},
