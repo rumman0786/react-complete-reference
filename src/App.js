@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -57,14 +58,29 @@ class App extends Component {
 
   render() {
     const jsxButtonstyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor:'lighgreen',
+        color:'black'
+      }
     };
 
     let persons = null;
+
+    const classes = [];
+
+    if(this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+
+    if(this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
 
     if(this.state.showPersons) {
       persons = (
@@ -81,12 +97,18 @@ class App extends Component {
               }
             </div>
       );
+
+      jsxButtonstyle.backgroundColor = 'red';
+      jsxButtonstyle[':hover'] = {
+        backgroundColor: 'salmon',
+        color:'black'
+      };
     }
 
     return (
       <div className="App">
         <h1>This is a React App</h1>
-        <p>Does this work???</p>
+        <p className={classes.join(' ')}>Does this work???</p>
         <button style={jsxButtonstyle}
                 onClick={this.togglePersonsHandler}>Switch Visibility</button>
         {persons}
@@ -97,4 +119,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
