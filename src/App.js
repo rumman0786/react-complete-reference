@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -106,6 +106,7 @@ class App extends Component {
     }
 
     return (
+      <StyleRoot>
       <div className="App">
         <h1>This is a React App</h1>
         <p className={classes.join(' ')}>Does this work???</p>
@@ -113,6 +114,7 @@ class App extends Component {
                 onClick={this.togglePersonsHandler}>Switch Visibility</button>
         {persons}
       </div>
+      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'},
     //                                 React.createElement('h1', null, 'Hellow World!!!'));
