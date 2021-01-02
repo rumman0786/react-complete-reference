@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-import styled from 'styled-components'
+import classes from './App.css';
 import Person from './Person/Person';
-
-const StyledButton = styled.button`
-background-color: ${props => props.show ? 'red' : 'green'};
-color: white;
-font: inherit;
-border: 1px solid blue;
-padding: 8px;
-cursor: pointer;
-
-&:hover {
-  background-color: ${props => props.show ? 'salmon' : 'lightgreen'};;
-  color: black;
-}
-`;
 
 class App extends Component {
 
@@ -72,15 +57,16 @@ class App extends Component {
 
   render() {
     let persons = null;
+    let btnClass = '';
 
-    const classes = [];
+    const assignedClasses = [];
 
     if(this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
 
     if(this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     if(this.state.showPersons) {
@@ -99,18 +85,14 @@ class App extends Component {
             </div>
       );
 
-      // jsxButtonstyle.backgroundColor = 'red';
-      // jsxButtonstyle[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color:'black'
-      // };
+      btnClass = classes.Red;
     }
 
-    return (
-      <div className="App">
+     return (
+      <div className={classes.App}>
         <h1>This is a React App</h1>
-        <p className={classes.join(' ')}>Does this work???</p>
-        <StyledButton show={this.state.showPersons} onClick={this.togglePersonsHandler}>Switch Visibility</StyledButton>
+        <p className={assignedClasses.join(' ')}>Does this work???</p>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>Switch Visibility</button>
         {persons}
       </div>
     );
