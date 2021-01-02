@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from './App.css';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -26,7 +27,9 @@ class App extends Component {
   }
 
   nameChangedHandler = (event, personId) => {
-    const personIndex = this.state.persons.findIndex(p => p.id === personId);
+    const personIndex = this.state.persons.findIndex(p => { 
+      return p.id === personId
+    });
     const copySelectedPerson = {
       ...this.state.persons[personIndex]
     };
@@ -74,12 +77,14 @@ class App extends Component {
             <div>
               {
                 this.state.persons.map((person, index) =>
+                <ErrorBoundary>
                   <Person
                     callback={() => this.deletePersonsHandler(index)}
                     changeCallback={(event) => this.nameChangedHandler(event, person.id)}
                     key={person.id}
                     name={person.name}
                     age={person.age}/>
+                  </ErrorBoundary>
                 )
               }
             </div>
