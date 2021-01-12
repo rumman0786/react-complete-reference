@@ -16,9 +16,19 @@ const Cockpit = (props) => {
       setTimeout(() => {
          alert("Triggered useEffect");
       }, 1000);
+
+      return () => {
+        console.log('[Cockpit.js] useEffect cleanup');
+      }
     }, []);
 
     // useEffect can be defined multiple times.
+    useEffect(() =>  {
+      console.log('[Cockpit.js] useEffect 2');
+      return () => {
+        console.log('[Cockpit.js] useEffect 2 cleanup');
+      }
+    });
 
     let btnClass = '';
     if(props.showPersons) {
