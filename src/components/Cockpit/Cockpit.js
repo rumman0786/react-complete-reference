@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import classes from './Cockpit.css'
 
 const Cockpit = (props) => {
+
+    /*
+    * useEffect with no second param will act like componentDidMount + componentDidUpdate
+    * useEffect with `[]` as second param will act like componentDidMount
+    * useEffect with `[a,b,c]` as second param will trigger on mount + state changes of a, b, c.
+    */ 
+    useEffect(() =>  {
+      console.log('[Cockpit.js] useEffect');
+      // HTTP request can be made...
+
+      setTimeout(() => {
+         alert("Triggered useEffect");
+      }, 1000);
+    }, []);
+
+    // useEffect can be defined multiple times.
+
     let btnClass = '';
     if(props.showPersons) {
         btnClass = classes.Red;
