@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classes from './Person.css'
+import Aux from '../../../aux/aux';
 
 class Person extends Component {
 
@@ -38,11 +38,11 @@ class Person extends Component {
         console.log('[Person.js] rendering');
 
         return (
-            <div className={classes.Person}>
+            <Aux>
                 <p onClick={this.props.callback}>I am {this.props.name}, I am {this.props.age} years old!!!</p>
                 <p>{this.props.children}</p>
                 <input type='text' onChange={this.props.changeCallback} value={this.props.name}></input>
-            </div>
+            </Aux>
         );
     }
 }

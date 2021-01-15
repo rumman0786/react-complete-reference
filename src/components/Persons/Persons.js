@@ -4,9 +4,15 @@ import Person from './Person/Person'
 class Persons extends Component {
 
 
+    // can comment out shouldComponentUpdate(...)
+    // and extent Component => PureComponent if we want to check 
+    // for all props of a class.
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
-        if(nextProps.persons !== this.props.persons) {
+        if(nextProps.persons !== this.props.persons
+            || nextProps.clicked !== this.props.clicked
+            || nextProps.changed !== this.props.changed
+            ) {
             return true;
         }
 
