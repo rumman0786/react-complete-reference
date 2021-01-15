@@ -20,7 +20,8 @@ class App extends Component {
     ],
     otherstate: "This is another prop",
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    nameChangeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -69,7 +70,12 @@ class App extends Component {
     const copyPersons = [...this.state.persons];
     copyPersons[personIndex] = copySelectedPerson;
 
-    this.setState({persons: copyPersons});
+    this.setState((prevState, props) => {
+      return {
+        persons: copyPersons,
+        nameChangeCounter: prevState.nameChangeCounter+1
+      }
+    });
   }
 
   togglePersonsHandler = () => {
