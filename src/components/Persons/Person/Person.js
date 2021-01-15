@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Aux from '../../../aux/aux';
+import Aux from '../../../hoc/Aux';
 
 class Person extends Component {
 
