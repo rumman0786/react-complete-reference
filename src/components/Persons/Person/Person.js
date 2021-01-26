@@ -6,6 +6,11 @@ import classes from './Person.css'
 
 class Person extends Component {
 
+    // constructor(props) {
+    //     super(props);
+    //     this.inputElementRef = React.createRef();
+    // }
+
     // static getDerivedStateFromProps(props, state) {
     //     console.log('[Person.js] getDerivedStateFromProps');
     //     return state;
@@ -14,6 +19,11 @@ class Person extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Person.js] shouldComponentUpdate');
         return true;
+    }
+
+    componentDidMount() {
+        this.inputElement.focus();
+        // this.inputElementRef.current.focus();
     }
 
     // componentWillReceiveProps(props) {
@@ -48,6 +58,8 @@ class Person extends Component {
                 <p key='i2'>{this.props.children}</p>
                     <input key='i3' 
                             type='text' 
+                            ref={(inputEl) => {this.inputElement = inputEl}}
+                            // ref={this.inputElementRef}
                             onChange={this.props.changeCallback} 
                             value={this.props.name}>
                 </input>
