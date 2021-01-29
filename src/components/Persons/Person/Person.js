@@ -52,6 +52,7 @@ class Person extends Component {
 
         return (
             <Aux>
+                {this.props.authenticated ? <p>Authenticated User!</p> : <p>Please Login</p>}
                 <p onClick={this.props.callback}>
                     I am {this.props.name}, I am {this.props.age} years old!!!
                 </p>
