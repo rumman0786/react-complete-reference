@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import classes from './Cockpit.css'
 
 const Cockpit = (props) => {
 
+    const toggleButtonRef = useRef(null);
     /*
     * useEffect with no second param will act like componentDidMount + componentDidUpdate
     * useEffect with `[]` as second param will act like componentDidMount
@@ -13,14 +14,16 @@ const Cockpit = (props) => {
       console.log('[Cockpit.js] useEffect');
       // HTTP request can be made...
 
-      setTimeout(() => {
-         alert("Triggered useEffect");
-      }, 1000);
+      // setTimeout(() => {
+      //    alert("Triggered useEffect");
+      // }, 1000);
+
+      toggleButtonRef.current.click();
 
       return () => {
         console.log('[Cockpit.js] useEffect cleanup');
       }
-    }, []);
+    }, []); //this will run first time only once component is mounted, due to [] param.
 
     // useEffect can be defined multiple times.
     useEffect(() =>  {
@@ -49,7 +52,7 @@ const Cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>Does this work???</p>
-            <button className={btnClass} onClick={props.clicked}>Switch Visibility</button>
+            <button ref={toggleButtonRef} className={btnClass} onClick={props.clicked}>Switch Visibility</button>
         </div>
     );
 };
