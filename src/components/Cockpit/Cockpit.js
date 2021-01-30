@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 
 import classes from './Cockpit.css'
 import AuthContext from '../../context/auth-context'
@@ -6,6 +6,9 @@ import AuthContext from '../../context/auth-context'
 const Cockpit = (props) => {
 
     const toggleButtonRef = useRef(null);
+    const authContext = useContext(AuthContext);
+
+    console.log(authContext.authenticated)
     /*
     * useEffect with no second param will act like componentDidMount + componentDidUpdate
     * useEffect with `[]` as second param will act like componentDidMount
@@ -54,10 +57,7 @@ const Cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>Does this work???</p>
             <button ref={toggleButtonRef} className={btnClass} onClick={props.clicked}>Switch Visibility</button>
-            <AuthContext.Consumer>
-              {context => <button onClick={context.login}>Login</button>}
-            </AuthContext.Consumer>
-            
+            <button onClick={authContext.login}>Login</button>
         </div>
     );
 };

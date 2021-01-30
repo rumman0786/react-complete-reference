@@ -22,9 +22,17 @@ class Person extends Component {
         return true;
     }
 
+    /*
+    Allows class based component to connect with
+    defined Context and gives access to new
+    class property this.context
+    */
+    static contextType = AuthContext;
+
     componentDidMount() {
         this.inputElement.focus();
         // this.inputElementRef.current.focus();
+        console.log('[Person.js] authenticated: ' + this.context.authenticated);
     }
 
     // componentWillReceiveProps(props) {
@@ -53,9 +61,8 @@ class Person extends Component {
 
         return (
             <Aux>
-                <AuthContext>
-                    {(context) => context.authenticated ? <p>Authenticated User!</p> : <p>Please Login</p>}
-                </AuthContext>
+                {this.context.authenticated ? <p>Authenticated User!</p> : <p>Please Login</p>}
+
                 <p onClick={this.props.callback}>
                     I am {this.props.name}, I am {this.props.age} years old!!!
                 </p>
