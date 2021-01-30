@@ -47,7 +47,6 @@ class Persons extends Component {
                     key={person.id}
                     name={person.name}
                     age={person.age}
-                    authenticated={this.props.isAuth}
                     />
             }
         );

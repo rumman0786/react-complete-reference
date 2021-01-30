@@ -3,6 +3,7 @@ import Aux from '../../../hoc/Aux';
 import withClass from '../../../hoc/withClass';
 import PropTypes from 'prop-types'
 import classes from './Person.css'
+import AuthContext from '../../../context/auth-context'
 
 class Person extends Component {
 
@@ -52,7 +53,9 @@ class Person extends Component {
 
         return (
             <Aux>
-                {this.props.authenticated ? <p>Authenticated User!</p> : <p>Please Login</p>}
+                <AuthContext>
+                    {(context) => context.authenticated ? <p>Authenticated User!</p> : <p>Please Login</p>}
+                </AuthContext>
                 <p onClick={this.props.callback}>
                     I am {this.props.name}, I am {this.props.age} years old!!!
                 </p>
